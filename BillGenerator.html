@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TPNODL electric bill generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        form {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        input[type="number"] {
+            padding: 10px;
+        }
+
+        #billResult {
+            display: none;
+        }
+
+        #billResult h2 {
+            text-align: center;
+        }
+
+        #billResult p {
+            margin-left: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Electricity Bill Calculator for TPNODL</h1>
+    <form id="billForm">
+        <label for="units">Enter units consumed:</label>
+        <input type="number" id="units" name="units" min="1" required>
+        <input type="submit" value="Calculate Bill">
+    </form>
+    <br>
+    <div id="billResult">
+        <h2>Electricity Bill</h2>
+        <p id="energyCharge">Energy Charges: Rs. 0</p>
+        <p id="fixedCharge">Fixed Charges: Rs. 0</p>
+        <p id="dutyCharge">Electricity Duty: Rs. 0</p>
+        <p id="totalBill">Total Bill: Rs. 0</p>
+        <hr>
+        <p><i>Heartly Thanks From <b> Ashis kumar Dey</b></i></p>
+    </div>
+    <script>
+        document.getElementById("billForm").addEventListener("submit", function (event) {
+            event.preventDefault();
+            var units = parseInt(document.getElementById("units").value);
+            var energyCharges = 0;
+            var fixedCharges = 80;
+            var dutyCharge = 0;
+            var totalBill = 0;
+
+            if (units <= 50) {
+                energyCharges = units * 3;
+            } else {
+                energyCharges = (50 * 3) + ((units - 50) * 4.8);
+            }
+
+            dutyCharge = energyCharges * 0.04;
+            totalBill = energyCharges + fixedCharges + dutyCharge;
+
+            document.getElementById("energyCharge").innerText = "Energy Charges: Rs. " + energyCharges;
+            document.getElementById("fixedCharge").innerText = "Fixed Charges: Rs. " + fixedCharges;
+            document.getElementById("dutyCharge").innerText = "Electricity Duty: Rs. " + dutyCharge.toFixed(2);
+            document.getElementById("totalBill").innerText = "Total Bill: Rs. " + totalBill.toFixed(2);
+
+            document.getElementById("billResult").style.display = "block";
+        });
+
+    </script>
+</body>
+
+</html>
